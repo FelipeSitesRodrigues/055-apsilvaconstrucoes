@@ -391,6 +391,39 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
 .sec--deep .sec__lead{color:var(--muted-inv)}
 
 /* ============================================================
+   TIRA DE OBRAS
+   Corre sozinha, da direita para a esquerda, em laço contínuo. A
+   pista tem duas cópias da lista lado a lado e desliza exatamente
+   metade da própria largura, então a emenda nunca aparece.
+   ============================================================ */
+.tira{
+  overflow:hidden;background:var(--deep);
+  padding:14px 0;border-block:1px solid var(--line-inv);
+  /* apaga as pontas, para as fotos entrarem e saírem sem corte seco */
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(to right,transparent,#000 9%,#000 91%,transparent);
+}
+.tira__pista{
+  display:flex;width:max-content;
+  animation:corre 64s linear infinite;
+}
+.tira:hover .tira__pista{animation-play-state:paused}
+@keyframes corre{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(-50%,0,0)}
+}
+.tira__lote{display:flex;gap:14px;padding:0 7px;margin:0;list-style:none}
+.tira__lote li{flex:none}
+.tira__lote img{
+  height:190px;width:auto;border-radius:9px;
+  border:1px solid var(--line-inv);
+  object-fit:cover;
+  filter:saturate(.94);
+  transition:transform .45s var(--ez),filter .35s linear,border-color .3s linear;
+}
+.tira__lote img:hover{transform:translateY(-4px) scale(1.02);filter:saturate(1.1);border-color:var(--cyan)}
+
+/* ============================================================
    SERVIÇOS
    ============================================================ */
 .svc{
@@ -1002,6 +1035,10 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   .works__cta{flex-direction:column;align-items:stretch}
   .works__cta p{margin:0 0 4px;max-width:none}
   .works__cta .btn{justify-content:center}
+  .tira{padding:10px 0}
+  .tira__lote{gap:10px;padding:0 5px}
+  .tira__lote img{height:132px;border-radius:7px}
+  .tira__pista{animation-duration:44s}
   .film{grid-template-columns:1fr;gap:28px;justify-items:center}
   .player{width:100%;max-width:310px}
   .film__txt{width:100%}
@@ -1037,6 +1074,12 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   .rv,.stg>*{opacity:1;transform:none}
   .truss{clip-path:none}
   .steps::before,.stat dd::before{transform:scaleX(1)}
+  .player__go::before{display:none}
+  /* a tira para de correr e vira rolagem na mão, senão as fotos do fim
+     ficariam inalcançáveis para quem pediu menos movimento */
+  .tira{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tira__pista{animation:none;width:auto}
+  .tira__lote[aria-hidden="true"]{display:none}
 }
 
 @media print{
