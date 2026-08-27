@@ -39,6 +39,8 @@ veio o clique. É isso que mostra qual seção converte.
 | `clique_instagram` | Link do Instagram | `obras`, `rodape`, `rodape_contato` |
 | `clique_facebook` | Link do Facebook | `rodape` |
 | `abriu_duvida` | Abertura de uma pergunta do FAQ | traz `pergunta` com o texto |
+| `play_video` | Clique no play do vídeo da obra | `secao_video` |
+| `video_ate_o_fim` | Vídeo assistido até o final | `secao_video` |
 
 O `envio_formulario` carrega dois parâmetros extras que valem ouro pra
 qualificar lead no Google Ads:
@@ -57,6 +59,11 @@ qualificar lead no Google Ads:
 - `agendar_visita`
 - `clique_telefone`
 - `abriu_duvida`
+- `play_video` e `video_ate_o_fim`
+
+Vale cruzar `video_ate_o_fim` com `envio_formulario` depois de algumas
+semanas: se quem assiste o vídeo converte mais, o vídeo merece subir na
+página. Se não muda nada, ele fica onde está.
 
 Separar assim evita o erro mais comum: contar como conversão todo clique de
 WhatsApp da página, inclusive o do rodapé, e otimizar a campanha pra um

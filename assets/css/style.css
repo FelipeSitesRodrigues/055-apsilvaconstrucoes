@@ -580,6 +580,75 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
 .works__cta p{margin:0 auto 0 0;font-size:16px;color:var(--muted);max-width:38ch}
 
 /* ============================================================
+   VÍDEO DA OBRA
+   O vídeo é vertical e de resolução modesta, então o player fica
+   estreito de propósito: esticado numa caixa larga ele borraria.
+   ============================================================ */
+.film{
+  display:grid;grid-template-columns:minmax(0,330px) minmax(0,1fr);
+  gap:clamp(30px,4.4vw,68px);align-items:center;
+}
+
+.player{
+  position:relative;isolation:isolate;
+  aspect-ratio:478/850;border-radius:16px;overflow:hidden;
+  background:#04191F;border:1px solid var(--line-inv);
+  box-shadow:0 30px 70px -34px rgba(0,0,0,.95);
+}
+.player::after{
+  content:'';position:absolute;inset:-2px;border-radius:18px;z-index:-1;
+  background:radial-gradient(ellipse at 50% 70%,rgba(46,208,106,.34),rgba(53,168,201,.16) 52%,transparent 74%);
+}
+.player__capa{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .7s var(--ez),filter .45s linear;
+}
+.player:hover .player__capa{transform:scale(1.035);filter:brightness(.86)}
+
+/* o botão de play: anel que respira, e abre no hover */
+.player__go{
+  position:absolute;inset:0;margin:auto;
+  display:grid;place-items:center;
+  width:82px;height:82px;border-radius:50%;border:0;cursor:pointer;
+  background:linear-gradient(165deg,var(--green-lit),var(--green) 72%);
+  color:#fff;
+  box-shadow:0 10px 26px -8px rgba(23,163,74,.9);
+  transition:transform .4s var(--ez),box-shadow .4s var(--ez);
+}
+.player__go .ico{width:30px;height:30px;margin-left:5px}
+.player__go::before{
+  content:'';position:absolute;inset:-14px;border-radius:50%;
+  border:2px solid rgba(46,208,106,.5);
+  animation:pulso 2.8s var(--ez-io) infinite;
+}
+@keyframes pulso{
+  0%{transform:scale(.9);opacity:.85}
+  70%{transform:scale(1.28);opacity:0}
+  100%{transform:scale(1.28);opacity:0}
+}
+.player:hover .player__go{transform:scale(1.08);box-shadow:0 16px 38px -10px rgba(23,163,74,1)}
+.player__go:active{transform:scale(1.01)}
+
+.player__tempo{
+  position:absolute;right:12px;bottom:12px;
+  padding:5px 10px;border-radius:6px;
+  background:rgba(4,25,31,.78);backdrop-filter:blur(6px);
+  font:700 12px/1 var(--mono);letter-spacing:-.02em;color:#fff;
+}
+/* quando o vídeo entra, a capa e o botão saem de cena */
+.player.is-live .player__go,
+.player.is-live .player__tempo,
+.player.is-live .player__capa{display:none}
+.player video{width:100%;height:100%;display:block;object-fit:cover;background:#04191F}
+
+.film__txt>p{color:var(--muted-inv);max-width:52ch;margin:18px 0 0}
+.film__marks{list-style:none;margin:26px 0 30px;padding:0;display:grid;gap:16px}
+.film__marks li{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:14px}
+.film__marks .ico{grid-row:1/3;color:var(--cyan)}
+.film__marks b{font:700 15px/1.3 var(--display);letter-spacing:-.01em}
+.film__marks span{font-size:14.2px;line-height:1.5;color:var(--muted-inv)}
+
+/* ============================================================
    PROBLEMAS QUE RESOLVEMOS
    ============================================================ */
 .prob{
@@ -847,6 +916,7 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   .why{grid-template-columns:1fr;gap:32px}
   .works{grid-template-columns:repeat(2,1fr)}
   .warranty,.faq,.quote{grid-template-columns:1fr;gap:30px}
+  .film{grid-template-columns:minmax(0,290px) minmax(0,1fr);gap:34px}
   .warranty__list{grid-template-columns:repeat(2,1fr)}
   .quote__ways{grid-template-columns:repeat(2,1fr)}
   .form{max-width:560px}
@@ -932,6 +1002,12 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   .works__cta{flex-direction:column;align-items:stretch}
   .works__cta p{margin:0 0 4px;max-width:none}
   .works__cta .btn{justify-content:center}
+  .film{grid-template-columns:1fr;gap:28px;justify-items:center}
+  .player{width:100%;max-width:310px}
+  .film__txt{width:100%}
+  .film__txt .btn{width:100%;justify-content:center}
+  .player__go{width:70px;height:70px}
+  .player__go .ico{width:26px;height:26px}
   .faq summary{font-size:15.5px;padding:16px 18px;gap:12px}
   .faq details p{padding:0 18px 18px;font-size:14.5px}
   .float{height:52px;padding:0 18px;font-size:14.5px}

@@ -167,6 +167,37 @@
     });
   }
 
+  /* ============================================================
+     PLAYER DO VÍDEO
+     Até o clique existe só a imagem de capa. O arquivo de vídeo é
+     baixado sob demanda, então não pesa no carregamento da página
+     nem na nota de experiência que o Google Ads mede.
+     ============================================================ */
+  var player = $('.player');
+
+  if (player) {
+    var abrirVideo = function () {
+      if (player.classList.contains('is-live')) return;
+
+      var v = doc.createElement('video');
+      v.src = player.getAttribute('data-src');
+      v.controls = true;
+      v.autoplay = true;
+      v.playsInline = true;
+      v.preload = 'auto';
+      v.setAttribute('poster', $('.player__capa', player).src);
+      v.addEventListener('ended', function () { medir('video_ate_o_fim', { origem: 'secao_video' }); });
+
+      player.appendChild(v);
+      player.classList.add('is-live');
+      // se o autoplay for barrado, os controles ficam visíveis do mesmo jeito
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    };
+
+    $('.player__go', player).addEventListener('click', abrirVideo);
+  }
+
   /* ---------- só uma pergunta do FAQ aberta por vez ---------- */
   var perguntas = $$('.faq details');
   perguntas.forEach(function (d) {

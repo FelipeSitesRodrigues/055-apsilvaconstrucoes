@@ -144,6 +144,8 @@
   <g id="i-instagram"><rect x="3.8" y="3.8" width="16.4" height="16.4" rx="4.6"/><circle cx="12" cy="12" r="4.1"/><circle cx="16.9" cy="7.1" r="1.1" fill="currentColor" stroke="none"/></g>
   <g id="i-facebook"><path d="M14.6 21v-8h2.7l.5-3.4h-3.2V7.5c0-1 .3-1.7 1.7-1.7h1.7V2.8A22 22 0 0 0 15.5 2.7C13 2.7 11.2 4.2 11.2 7.1v2.5H8.5V13h2.7v8h3.4Z"/></g>
   <g id="i-arrow"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></g>
+  <g id="i-play"><path d="M8 5.2v13.6L19.4 12 8 5.2Z" fill="currentColor" stroke="none"/></g>
+  <g id="i-drone"><path d="M12 9.5h.01"/><circle cx="12" cy="12" r="2.6"/><path d="M9.4 9.4 5.6 5.6M14.6 9.4l3.8-3.8M9.4 14.6l-3.8 3.8M14.6 14.6l3.8 3.8"/><circle cx="4.4" cy="4.4" r="2"/><circle cx="19.6" cy="4.4" r="2"/><circle cx="4.4" cy="19.6" r="2"/><circle cx="19.6" cy="19.6" r="2"/></g>
   <g id="i-calendar"><path d="M4 5.5h16v15H4z"/><path d="M4 10h16M8.5 3v5M15.5 3v5"/><path d="m9.2 15 2 2 3.6-3.8"/></g>
   <g id="i-drop"><path d="M12 3.2s6 6.5 6 10.3a6 6 0 0 1-12 0C6 9.7 12 3.2 12 3.2Z"/><path d="M9.2 13.8a2.8 2.8 0 0 0 2.8 2.8"/></g>
   <g id="i-rust"><path d="M4.5 5.5h15v13h-15z"/><path d="M4.5 11c2.6.6 4-1.2 6.4-.6 2 .5 2.4 2.6 4.4 2.6 1.6 0 2.6-1 4.2-1.4"/><path d="M8 8.2h.01M15.4 15.6h.01M11.6 17.4h.01"/></g>
@@ -232,12 +234,50 @@
   </ul>
 </section>
 
+<!-- ============ 04. VÍDEO DA OBRA ============
+     O arquivo do vídeo NÃO baixa junto com a página: até alguém clicar
+     no play só existe a imagem de capa, de 86 KB. É isso que impede o
+     vídeo de pesar no carregamento e de mexer no Índice de Qualidade
+     das campanhas do Google Ads.
+     ============================================================ -->
+<section class="sec sec--deep sec--slim" id="video" aria-label="Vídeo da obra">
+  <div class="wrap film">
+    <div class="player" data-src="assets/video/obra.mp4">
+      <img class="player__capa" src="assets/img/video-capa.jpg"
+           alt="Caminhão munck içando uma treliça em arco durante a montagem da estrutura metálica"
+           width="478" height="850" loading="lazy" decoding="async">
+      <button class="player__go" type="button" aria-label="Reproduzir o vídeo da obra, 1 minuto"
+              data-ev="play_video" data-loc="secao_video">
+        <svg class="ico" aria-hidden="true"><use href="#i-play"/></svg>
+      </button>
+      <span class="player__tempo">1:00</span>
+    </div>
+
+    <div class="film__txt">
+      <p class="eyebrow"><i>02</i> A obra por dentro</p>
+      <h2 class="sec__h2">Veja como a estrutura <em>sai do chão</em></h2>
+      <p>Um minuto de obra real, filmado de drone: da marcação e do alinhamento das medidas até o içamento das treliças com guindaste próprio. É a mesma equipe e o mesmo equipamento que vão até o seu canteiro.</p>
+
+      <ul class="film__marks">
+        <li><svg class="ico ico--lg" aria-hidden="true"><use href="#i-drone"/></svg><b>Obra filmada de drone</b><span>Nada de imagem de banco, é canteiro nosso</span></li>
+        <li><svg class="ico ico--lg" aria-hidden="true"><use href="#i-crane"/></svg><b>Içamento com equipamento próprio</b><span>Guindaste e plataforma da própria A P Silva</span></li>
+      </ul>
+
+      <a class="btn btn--go" href="https://wa.me/5585991182848?text=Ol%C3%A1!%20Vi%20o%20v%C3%ADdeo%20da%20obra%20no%20site%20e%20gostaria%20de%20um%20or%C3%A7amento."
+         target="_blank" rel="noopener" data-ev="clique_whatsapp" data-loc="video">
+        <svg class="ico" aria-hidden="true"><use href="#i-whats"/></svg>
+        <span>Quero um orçamento assim</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ============ 04. PROBLEMAS QUE RESOLVEMOS ============ -->
 <section class="sec sec--light grid-paper" id="problemas">
   <div class="wrap">
     <div class="sec__head">
       <div>
-        <p class="eyebrow"><i>02</i> Problemas que resolvemos</p>
+        <p class="eyebrow"><i>03</i> Problemas que resolvemos</p>
         <h2 class="sec__h2">Se a sua obra está <em>parada</em> por um desses,<br>a gente resolve</h2>
       </div>
       <p class="sec__lead">Clique no problema que é o seu. A conversa já começa no WhatsApp com o assunto certo, sem você precisar explicar tudo de novo.</p>
@@ -290,7 +330,7 @@
   <div class="wrap">
     <div class="sec__head">
       <div>
-        <p class="eyebrow"><i>03</i> Serviços</p>
+        <p class="eyebrow"><i>04</i> Serviços</p>
         <h2 class="sec__h2">Soluções completas<br>em <em>estruturas metálicas</em></h2>
       </div>
       <p class="sec__lead">Atuamos do projeto à entrega final, com equipe própria, equipamentos adequados e foco total em segurança e qualidade.</p>
@@ -363,7 +403,7 @@
   <div class="wrap">
     <div class="sec__head">
       <div>
-        <p class="eyebrow"><i>04</i> Obras realizadas</p>
+        <p class="eyebrow"><i>05</i> Obras realizadas</p>
         <h2 class="sec__h2">Estruturas que falam <em>por nós</em></h2>
       </div>
       <p class="sec__lead">Obras executadas pela nossa equipe, com nossos equipamentos. Todas as fotos abaixo são de canteiros reais da A P Silva.</p>
@@ -427,7 +467,7 @@
   <div class="truss truss--top" aria-hidden="true"></div>
   <div class="wrap about">
     <div class="about__txt">
-      <p class="eyebrow"><i>05</i> Quem somos</p>
+      <p class="eyebrow"><i>06</i> Quem somos</p>
       <h2 class="sec__h2">Equipe própria, equipamento próprio,<br>obra que <em>anda</em></h2>
       <p>A A P Silva Construções e Serviços executa estrutura metálica em Fortaleza e em todo o Ceará com equipe própria, treinada e certificada. Não terceirizamos a montagem: quem faz o seu orçamento é quem vai estar no seu canteiro.</p>
       <p>Guindaste, plataforma e frota são nossos, o que tira da obra a espera mais cara de todas, que é a espera por equipamento de terceiro.</p>
@@ -451,7 +491,7 @@
 <section class="sec sec--light grid-paper" id="motivos">
   <div class="wrap why">
     <div class="why__head">
-      <p class="eyebrow"><i>06</i> Por que escolher a A P Silva</p>
+      <p class="eyebrow"><i>07</i> Por que escolher a A P Silva</p>
       <h2 class="sec__h2">Motivos que fazem a <em>diferença</em></h2>
       <a class="btn btn--go" href="https://wa.me/5585991182848?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20*falar%20com%20um%20especialista*."
          target="_blank" rel="noopener" data-ev="clique_whatsapp" data-loc="motivos">
@@ -476,7 +516,7 @@
   <div class="wrap">
     <div class="sec__head">
       <div>
-        <p class="eyebrow"><i>07</i> Como funciona</p>
+        <p class="eyebrow"><i>08</i> Como funciona</p>
         <h2 class="sec__h2">Do primeiro contato<br>à estrutura <em>de pé</em></h2>
       </div>
       <p class="sec__lead">Cinco etapas, sem etapa escondida e sem surpresa no meio da obra.</p>
@@ -496,7 +536,7 @@
 <section class="sec sec--light grid-paper" id="avaliacoes">
   <div class="wrap reviews">
     <div class="reviews__head">
-      <p class="eyebrow"><i>08</i> Avaliações</p>
+      <p class="eyebrow"><i>09</i> Avaliações</p>
       <h2 class="sec__h2">Quem conhece,<br><em>recomenda.</em></h2>
 
       <div class="score">
@@ -536,7 +576,7 @@
   <div class="truss truss--top" aria-hidden="true"></div>
   <div class="wrap warranty">
     <div class="warranty__head">
-      <p class="eyebrow"><i>09</i> Garantia</p>
+      <p class="eyebrow"><i>10</i> Garantia</p>
       <h2 class="sec__h2">O que está <em>garantido</em><br>antes de você assinar</h2>
       <p class="sec__lead">Nada de condição descoberta depois. O que a A P Silva assume vai por escrito na proposta.</p>
     </div>
@@ -553,7 +593,7 @@
 <section class="sec sec--light grid-paper" id="duvidas">
   <div class="wrap faq">
     <div class="faq__head">
-      <p class="eyebrow"><i>10</i> Dúvidas frequentes</p>
+      <p class="eyebrow"><i>11</i> Dúvidas frequentes</p>
       <h2 class="sec__h2">Perguntas que a gente<br>mais <em>escuta</em></h2>
       <p class="sec__lead">Se a sua não estiver aqui, manda no WhatsApp que a gente responde.</p>
       <a class="btn btn--ghost" href="https://wa.me/5585991182848?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20tenho%20uma%20d%C3%BAvida."
@@ -597,7 +637,7 @@
   <div class="truss truss--top" aria-hidden="true"></div>
   <div class="wrap quote">
     <div class="quote__txt">
-      <p class="eyebrow"><i>11</i> Orçamento</p>
+      <p class="eyebrow"><i>12</i> Orçamento</p>
       <h2 class="sec__h2">Vamos tirar seu <em>projeto</em><br>do papel?</h2>
       <p>Preencha ao lado ou chame direto no WhatsApp. A visita técnica é sem compromisso e o orçamento sai depois dela, com número fechado.</p>
 
