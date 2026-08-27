@@ -4,6 +4,31 @@
    Assinatura: a treliça. Divide as seções e se monta na entrada.
    ============================================================ */
 
+/* ============================================================
+   FONTES, SERVIDAS DO PRÓPRIO DOMÍNIO
+   Vinham do Google Fonts, o que criava uma fila de espera: o
+   navegador tinha que buscar um CSS no googleapis para só então
+   descobrir os arquivos no gstatic, em outro domínio. Eram 897 ms
+   antes da primeira letra aparecer.
+   São as versões variáveis: um arquivo cobre toda a faixa de peso,
+   então as três famílias inteiras cabem em 108 KB.
+   ============================================================ */
+@font-face{
+  font-family:'Archivo';font-style:normal;font-weight:600 900;font-display:swap;
+  src:url('../fonts/archivo.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'IBM Plex Sans';font-style:normal;font-weight:400 700;font-display:swap;
+  src:url('../fonts/plex-sans.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'JetBrains Mono';font-style:normal;font-weight:500 700;font-display:swap;
+  src:url('../fonts/mono.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
 :root{
   /* superfície */
   --paper:#FFFFFF;
@@ -652,7 +677,7 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
 
 /* o botão de play: anel que respira, e abre no hover */
 .player__go{
-  position:absolute;inset:0;margin:auto;
+  position:absolute;inset:0;margin:auto;z-index:2;
   display:grid;place-items:center;
   width:82px;height:82px;border-radius:50%;border:0;cursor:pointer;
   background:linear-gradient(165deg,var(--green-btn),var(--green-btn-2));
@@ -675,16 +700,42 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
 .player__go:active{transform:scale(1.01)}
 
 .player__tempo{
-  position:absolute;right:12px;bottom:12px;
+  position:absolute;right:12px;bottom:12px;z-index:2;
   padding:5px 10px;border-radius:6px;
   background:rgba(4,25,31,.78);backdrop-filter:blur(6px);
   font:700 12px/1 var(--mono);letter-spacing:-.02em;color:#fff;
 }
-/* quando o vídeo entra, a capa e o botão saem de cena */
-.player.is-live .player__go,
-.player.is-live .player__tempo,
-.player.is-live .player__capa{display:none}
-.player video{width:100%;height:100%;display:block;object-fit:cover;background:#04191F}
+.player__go .ico--som,.player__rot{display:none}
+.player video{
+  position:absolute;inset:0;
+  width:100%;height:100%;display:block;object-fit:cover;background:#04191F;
+}
+
+/* rodando sozinho e mudo: a capa sai, e o play vira um convite discreto
+   para ligar o som, encostado no canto em vez de tampar a cena */
+.player.is-live .player__capa{opacity:0}
+.player.is-mudo .player__go{
+  inset:auto 12px 12px auto;margin:0;
+  width:auto;height:38px;padding:0 15px;border-radius:999px;
+  gap:8px;display:flex;align-items:center;
+  background:rgba(4,25,31,.82);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border:1px solid rgba(53,168,201,.4);
+  box-shadow:0 6px 18px -8px rgba(0,0,0,.8);
+}
+.player.is-mudo .player__go::before{display:none}
+.player.is-mudo .player__go .ico--play{display:none}
+.player.is-mudo .player__go .ico--som{display:block;width:19px;height:19px;margin:0}
+.player.is-mudo .player__rot{
+  display:block;font:600 13px/1 var(--body);color:#fff;
+}
+.player.is-mudo:hover .player__go{background:var(--green-btn);border-color:var(--green-btn);transform:none}
+.player.is-mudo .player__tempo{display:none}
+
+/* com som: o vídeo assume, com os controles do próprio navegador */
+.player.is-som .player__go,
+.player.is-som .player__tempo{display:none}
+.player.is-som video{object-fit:contain}
 
 .film__txt>p{color:var(--muted-inv);max-width:52ch;margin:18px 0 0}
 .film__marks{list-style:none;margin:26px 0 30px;padding:0;display:grid;gap:16px}

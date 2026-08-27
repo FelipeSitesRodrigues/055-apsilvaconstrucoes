@@ -42,19 +42,25 @@
   var hero = $('.hero');
 
   // no celular o botão flutuante aparece cedo: ali o CTA do hero sai da
-  // tela rápido e a pessoa fica sem nenhum caminho de conversão à mão
-  var gatilhoFlutuante = function () {
-    if (!hero) return 400;
-    return window.innerWidth <= 820 ? hero.offsetHeight * 0.28 : hero.offsetHeight * 0.6;
-  };
+  // tela rápido e a pessoa fica sem nenhum caminho de conversão à mão.
+  // A altura do hero fica guardada: lê-la a cada scroll obrigava o
+  // navegador a recalcular o layout inteiro, 112 ms de trabalho à toa.
+  var gatilho = 400;
+
+  function medirGatilho() {
+    if (!hero) return;
+    gatilho = hero.offsetHeight * (window.innerWidth <= 820 ? 0.28 : 0.6);
+  }
 
   function aoRolar() {
-    if (hd) hd.classList.toggle('is-stuck', window.scrollY > 8);
-    if (flutuante && hero) {
-      flutuante.classList.toggle('is-on', window.scrollY > gatilhoFlutuante());
-    }
+    var y = window.scrollY;
+    if (hd) hd.classList.toggle('is-stuck', y > 8);
+    if (flutuante) flutuante.classList.toggle('is-on', y > gatilho);
   }
+
   window.addEventListener('scroll', aoRolar, { passive: true });
+  window.addEventListener('resize', function () { medirGatilho(); aoRolar(); });
+  medirGatilho();
   aoRolar();
 
   /* ---------- menu mobile ---------- */
@@ -183,26 +189,58 @@
   var player = $('.player');
 
   if (player) {
-    var abrirVideo = function () {
-      if (player.classList.contains('is-live')) return;
+    var video = null;
 
-      var v = doc.createElement('video');
-      v.src = player.getAttribute('data-src');
-      v.controls = true;
-      v.autoplay = true;
-      v.playsInline = true;
-      v.preload = 'auto';
-      v.setAttribute('poster', $('.player__capa', player).src);
-      v.addEventListener('ended', function () { medir('video_ate_o_fim', { origem: 'secao_video' }); });
+    // sozinho: mudo e em laço, como o cliente pediu. Com som: quem clicou
+    // no play quer ouvir, então começa do zero, com áudio e controles.
+    var abrirVideo = function (comSom) {
+      if (video) {
+        if (comSom) { video.muted = false; video.controls = true; video.loop = false; video.currentTime = 0; video.play(); }
+        return;
+      }
+      video = doc.createElement('video');
+      video.src = player.getAttribute('data-src');
+      video.playsInline = true;
+      video.setAttribute('playsinline', '');
+      video.preload = 'auto';
+      video.poster = $('.player__capa', player).currentSrc || $('.player__capa', player).src;
+      video.muted = !comSom;
+      video.loop = !comSom;
+      video.controls = !!comSom;
+      video.addEventListener('ended', function () { medir('video_ate_o_fim', { origem: 'secao_video' }); });
 
-      player.appendChild(v);
-      player.classList.add('is-live');
-      // se o autoplay for barrado, os controles ficam visíveis do mesmo jeito
-      var p = v.play();
-      if (p && p.catch) p.catch(function () {});
+      player.appendChild(video);
+      player.classList.add('is-live', comSom ? 'is-som' : 'is-mudo');
+
+      var p = video.play();
+      // se o navegador barrar o autoplay, a capa e o play voltam
+      if (p && p.catch) p.catch(function () {
+        player.classList.remove('is-live', 'is-mudo');
+        player.removeChild(video);
+        video = null;
+      });
     };
 
-    $('.player__go', player).addEventListener('click', abrirVideo);
+    $('.player__go', player).addEventListener('click', function () {
+      medir('play_video_com_som', { origem: 'secao_video' });
+      player.classList.remove('is-mudo');
+      player.classList.add('is-som');
+      abrirVideo(true);
+    });
+
+    // O vídeo só começa a baixar quando a seção chega perto da tela.
+    // É o que permite ele abrir sozinho sem atrasar o carregamento da
+    // página nem estragar a nota de velocidade das campanhas.
+    if ('IntersectionObserver' in window && !calmo) {
+      new IntersectionObserver(function (itens, obs) {
+        itens.forEach(function (i) {
+          if (!i.isIntersecting) return;
+          obs.disconnect();
+          medir('video_iniciou_sozinho', { origem: 'secao_video' });
+          abrirVideo(false);
+        });
+      }, { rootMargin: '220px 0px' }).observe(player);
+    }
   }
 
   /* ---------- só uma pergunta do FAQ aberta por vez ---------- */

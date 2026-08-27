@@ -39,7 +39,8 @@ veio o clique. É isso que mostra qual seção converte.
 | `clique_instagram` | Link do Instagram | `obras`, `rodape`, `rodape_contato` |
 | `clique_facebook` | Link do Facebook | `rodape` |
 | `abriu_duvida` | Abertura de uma pergunta do FAQ | traz `pergunta` com o texto |
-| `play_video` | Clique no play do vídeo da obra | `secao_video` |
+| `video_iniciou_sozinho` | O vídeo entrou na tela e começou mudo | `secao_video` |
+| `play_video_com_som` | Clique em "Ouvir": a pessoa quis o áudio | `secao_video` |
 | `video_ate_o_fim` | Vídeo assistido até o final | `secao_video` |
 
 O `envio_formulario` carrega dois parâmetros extras que valem ouro pra
@@ -59,7 +60,11 @@ qualificar lead no Google Ads:
 - `agendar_visita`
 - `clique_telefone`
 - `abriu_duvida`
-- `play_video` e `video_ate_o_fim`
+- `play_video_com_som` e `video_ate_o_fim`
+
+O `video_iniciou_sozinho` dispara para quase todo mundo que rola até a
+seção, então não serve como sinal de interesse. Quem clica em "Ouvir" é
+que está realmente engajado: é o `play_video_com_som` que vale olhar.
 
 Vale cruzar `video_ate_o_fim` com `envio_formulario` depois de algumas
 semanas: se quem assiste o vídeo converte mais, o vídeo merece subir na
