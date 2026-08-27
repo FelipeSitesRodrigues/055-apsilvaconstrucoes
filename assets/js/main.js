@@ -41,10 +41,17 @@
   var flutuante = $('.float');
   var hero = $('.hero');
 
+  // no celular o botão flutuante aparece cedo: ali o CTA do hero sai da
+  // tela rápido e a pessoa fica sem nenhum caminho de conversão à mão
+  var gatilhoFlutuante = function () {
+    if (!hero) return 400;
+    return window.innerWidth <= 820 ? hero.offsetHeight * 0.28 : hero.offsetHeight * 0.6;
+  };
+
   function aoRolar() {
     if (hd) hd.classList.toggle('is-stuck', window.scrollY > 8);
     if (flutuante && hero) {
-      flutuante.classList.toggle('is-on', window.scrollY > hero.offsetHeight * 0.6);
+      flutuante.classList.toggle('is-on', window.scrollY > gatilhoFlutuante());
     }
   }
   window.addEventListener('scroll', aoRolar, { passive: true });

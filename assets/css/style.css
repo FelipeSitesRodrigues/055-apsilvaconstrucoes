@@ -18,11 +18,19 @@
   --muted:#55686F;
   --muted-inv:#9CB6C0;
 
-  /* acento */
+  /* acento
+     Dois verdes por um motivo: o vivo é para brilho, ícone e palavra de
+     destaque em título grande. O de botão é mais escuro porque texto
+     branco sobre o vivo dá 3,3 de contraste e o mínimo exigido é 4,5.
+     O de botão fecha em 4,8. Mesma lógica no ciano: o claro só vive em
+     fundo escuro, porque em fundo claro cai para 2,5. */
   --green:#17A34A;
   --green-lit:#2ED06A;
   --green-deep:#0F7C37;
+  --green-btn:#0E8339;
+  --green-btn-2:#0A6B2E;
   --cyan:#35A8C9;
+  --cyan-dark:#12697E;
 
   /* traço */
   --line:#DDE8EC;
@@ -144,14 +152,14 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
 .btn:active{transform:translateY(1px) scale(.99)}
 
 .btn--go{
-  background:linear-gradient(170deg,var(--green-lit),var(--green) 62%);
+  background:linear-gradient(170deg,var(--green-btn),var(--green-btn-2));
   color:#fff;
-  box-shadow:0 1px 2px rgba(15,124,55,.4),0 12px 24px -12px rgba(23,163,74,.75);
+  box-shadow:0 1px 2px rgba(10,80,40,.45),0 12px 24px -12px rgba(23,163,74,.7);
 }
 .btn--go:hover{
-  background:linear-gradient(170deg,var(--green-lit),var(--green-deep) 90%);
+  background:linear-gradient(170deg,#10933F,var(--green-btn-2) 92%);
   transform:translateY(-2px);
-  box-shadow:0 2px 4px rgba(15,124,55,.4),0 20px 34px -14px rgba(23,163,74,.85);
+  box-shadow:0 2px 4px rgba(10,80,40,.45),0 20px 34px -14px rgba(23,163,74,.85);
 }
 
 .btn--ghost{
@@ -177,7 +185,7 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   transition:background-color .2s linear,border-color .2s linear,color .2s linear;
 }
 .lnk .ico{width:16px;height:16px;stroke-width:2;transition:transform .34s var(--ez)}
-.lnk:hover{background:var(--green);border-color:var(--green);color:#fff}
+.lnk:hover{background:var(--green-btn);border-color:var(--green-btn);color:#fff}
 .lnk:hover .ico{transform:translateX(4px)}
 
 /* ============================================================
@@ -371,6 +379,10 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   font:700 12px/1 var(--mono);font-style:normal;letter-spacing:-.02em;
   color:var(--green);
 }
+/* em fundo claro o ciano e o verde vivo caem para 2,5 e 3,2 de contraste.
+   Nessas seções o rótulo usa os tons fechados, que passam com folga. */
+.sec--light .eyebrow{color:var(--cyan-dark)}
+.sec--light .eyebrow i{color:var(--green-deep)}
 .eyebrow i::after{content:'';display:inline-block;width:18px;height:1px;background:currentColor;vertical-align:middle;margin-left:10px;opacity:.6}
 
 .sec__h2{
@@ -559,7 +571,7 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
 .steps li{display:grid;gap:8px;align-content:start;position:relative;z-index:1}
 .steps__n{
   display:grid;place-items:center;width:42px;height:42px;border-radius:50%;
-  background:linear-gradient(170deg,var(--green-lit),var(--green) 70%);color:#fff;
+  background:linear-gradient(170deg,var(--green-btn),var(--green-btn-2));color:#fff;
   font:700 16px/1 var(--mono);letter-spacing:-.04em;
   box-shadow:0 0 0 6px var(--paper-2),0 10px 20px -10px rgba(23,163,74,.8);
 }
@@ -643,7 +655,7 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   position:absolute;inset:0;margin:auto;
   display:grid;place-items:center;
   width:82px;height:82px;border-radius:50%;border:0;cursor:pointer;
-  background:linear-gradient(165deg,var(--green-lit),var(--green) 72%);
+  background:linear-gradient(165deg,var(--green-btn),var(--green-btn-2));
   color:#fff;
   box-shadow:0 10px 26px -8px rgba(23,163,74,.9);
   transition:transform .4s var(--ez),box-shadow .4s var(--ez);
@@ -759,7 +771,7 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;
   column-gap:16px;align-items:center;
   padding:14px 16px;border:1px solid var(--line-inv);border-radius:var(--r);
-  text-decoration:none;
+  text-decoration:none;color:#fff;
   transition:border-color .22s linear,background-color .22s linear,transform .3s var(--ez);
 }
 .quote__ways a:hover{border-color:var(--green);background:rgba(46,208,106,.07);transform:translateX(3px)}
@@ -912,7 +924,7 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   position:fixed;right:20px;bottom:20px;z-index:90;
   display:flex;align-items:center;gap:10px;
   height:56px;padding:0 22px;border-radius:999px;
-  background:linear-gradient(170deg,var(--green-lit),var(--green) 70%);color:#fff;
+  background:linear-gradient(170deg,var(--green-btn),var(--green-btn-2));color:#fff;
   text-decoration:none;
   font:700 15px/1 var(--body);letter-spacing:.005em;
   box-shadow:0 4px 10px rgba(6,34,45,.3),0 16px 32px -12px rgba(23,163,74,.85);
@@ -1047,7 +1059,14 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   .player__go .ico{width:26px;height:26px}
   .faq summary{font-size:15.5px;padding:16px 18px;gap:12px}
   .faq details p{padding:0 18px 18px;font-size:14.5px}
-  .float{height:52px;padding:0 18px;font-size:14.5px}
+  /* no celular o flutuante é a principal porta de conversão: fica maior,
+     mais largo e com folga do rodapé do navegador */
+  .float{
+    height:58px;padding:0 24px;font-size:15.5px;
+    right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));
+    box-shadow:0 4px 12px rgba(6,34,45,.42),0 18px 34px -12px rgba(23,163,74,.95);
+  }
+  .float .ico{width:26px;height:26px}
   .svc__card{padding:22px}
   .area__list{gap:20px;justify-content:space-between;width:100%}
   .area__list li{gap:8px}
@@ -1057,7 +1076,6 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   .cta__in .btn{justify-content:center}
   .ft__grid{grid-template-columns:1fr;gap:30px}
   .ft__base{flex-direction:column;gap:6px}
-  .float{width:54px;height:54px;right:16px;bottom:16px}
   .reviews__head{display:block}
   .score{margin-top:18px}
 }
