@@ -30,8 +30,8 @@ veio o clique. É isso que mostra qual seção converte.
 
 | Evento | Quando dispara | Valores de `origem` |
 |---|---|---|
-| `clique_whatsapp` | Qualquer botão ou link que abre o WhatsApp | `header`, `hero`, `botao_flutuante`, `obras`, `motivos`, `faq`, `orcamento_lateral`, `rodape`, `rodape_social`, `rodape_contato`, `problema_galpao`, `problema_vazamento`, `problema_corrosao`, `problema_reforco`, `problema_ampliacao`, `problema_cobertura`, `servico_galpao`, `servico_fabricacao`, `servico_cobertura`, `servico_telhado`, `servico_reforco`, `servico_mezanino`, `servico_projeto`, `servico_pintura`, `servico_desmontagem` |
-| `agendar_visita` | Botão "Agendar visita técnica" | `hero` |
+| `clique_whatsapp` | Qualquer botão ou link que abre o WhatsApp | `header`, `hero`, `video`, `botao_flutuante`, `servicos`, `obras`, `motivos`, `faq`, `orcamento_lateral`, `rodape`, `rodape_social`, `rodape_contato`, `problema_galpao`, `problema_ampliacao`, `problema_cobertura`, `problema_recuperacao`, `problema_vazamento`, `servico_galpao`, `servico_cobertura`, `servico_estrutura`, `servico_reforma`, `servico_mezanino`, `servico_pintura`, `servico_desmontagem`, `servico_projeto` |
+| `enviar_projeto` | Botão "Enviar projeto pelo WhatsApp", no hero | `hero` |
 | `envio_formulario` | Formulário de orçamento enviado e validado | `orcamento` |
 | `clique_telefone` | Link `tel:` | `orcamento_lateral` |
 | `clique_email` | Link `mailto:` | `orcamento_lateral`, `rodape` |
@@ -57,7 +57,7 @@ qualificar lead no Google Ads:
 
 **Secundária** (mede interesse, não otimiza):
 - `clique_whatsapp` vindo dos cards de problema e de serviço
-- `agendar_visita`
+- `enviar_projeto`
 - `clique_telefone`
 - `abriu_duvida`
 - `play_video_com_som` e `video_ate_o_fim`

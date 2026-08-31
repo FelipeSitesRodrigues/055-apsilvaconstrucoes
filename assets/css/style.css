@@ -253,7 +253,9 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
 }
 .hd__name em{
   font:600 10.5px/1.2 var(--body);font-style:normal;
-  letter-spacing:.13em;text-transform:uppercase;color:var(--cyan);
+  /* o ciano claro só passa em fundo escuro: no header branco a linha
+     da marca precisa da variante fechada */
+  letter-spacing:.13em;text-transform:uppercase;color:var(--cyan-dark);
 }
 
 .hd__nav{display:flex;gap:clamp(14px,2vw,30px);margin-inline:auto}
@@ -333,8 +335,19 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   font-size:clamp(15.5px,.4vw + 14px,17.5px);color:var(--muted);
   animation:riseIn .9s var(--ez) .22s both;
 }
+/* o convite que explica por que vale mandar mensagem antes de ter preço.
+   Fica entre o subtítulo e os botões: é a ponte entre a promessa e a ação */
+.hero__nota{
+  margin:20px 0 0;max-width:52ch;padding:14px 18px;
+  border-left:3px solid var(--green);border-radius:0 10px 10px 0;
+  background:linear-gradient(90deg,rgba(23,163,74,.09),rgba(23,163,74,0) 88%);
+  font-size:15px;line-height:1.55;color:var(--ink-2);
+  animation:riseIn .9s var(--ez) .28s both;
+}
+.hero__nota b{font:700 15px/1.4 var(--display);letter-spacing:-.012em;color:var(--ink);display:block;margin-bottom:2px}
+
 .hero__acts{
-  display:flex;flex-wrap:wrap;gap:14px;margin-top:32px;
+  display:flex;flex-wrap:wrap;gap:14px;margin-top:28px;
   animation:riseIn .9s var(--ez) .34s both;
 }
 
@@ -464,7 +477,7 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
    SERVIÇOS
    ============================================================ */
 .svc{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,22px);
+  display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,1.6vw,22px);
   list-style:none;margin:0;padding:0;
 }
 /* cards claros vivem dentro de seções escuras: a cor do texto é
@@ -472,19 +485,69 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
 .svc__card,.prob li,.rev,.work,.form{color:var(--ink)}
 
 .svc__card{
-  display:flex;flex-direction:column;align-items:flex-start;gap:12px;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  grid-template-areas:'ico titulo' 'ico texto' 'ico acao';
+  grid-template-rows:auto 1fr auto;
+  column-gap:clamp(16px,1.6vw,22px);row-gap:10px;
   padding:clamp(24px,2.4vw,32px);
   background:var(--paper);border:1px solid var(--line);border-radius:var(--r);
   box-shadow:var(--sh-1);
   transition:transform .38s var(--ez),box-shadow .38s var(--ez),border-color .3s linear;
 }
+.svc__card .ico--xl{grid-area:ico}
+.svc__card h3{grid-area:titulo}
+.svc__card p{grid-area:texto}
+.svc__card .lnk{grid-area:acao;justify-self:start;align-self:end}
 .svc__card:hover{transform:translateY(-5px);box-shadow:var(--sh-2);border-color:#C3DAE2}
-.svc__card .ico--xl{color:var(--ink-2);transition:color .3s linear,transform .5s var(--ez)}
+.svc__card .ico--xl{color:var(--ink-2);transition:color .3s linear,transform .5s var(--ez);margin-top:2px}
 .svc__card:hover .ico--xl{color:var(--green);transform:translateY(-2px)}
 .svc__card h3{
-  margin:2px 0 0;font:700 17.5px/1.25 var(--display);letter-spacing:-.014em;
+  margin:0;font:700 19px/1.2 var(--display);letter-spacing:-.016em;
 }
-.svc__card p{margin:0 0 6px;font-size:14.8px;line-height:1.6;color:var(--muted)}
+.svc__card p{margin:0 0 8px;font-size:15px;line-height:1.6;color:var(--muted)}
+
+/* OUTROS SERVIÇOS
+   Os quatro carros-chefe ficam em card grande. O resto entra aqui, numa
+   linha compacta: continua acessível e indexável, sem competir com o que
+   o cliente quer vender primeiro. */
+.svc__mais{
+  margin:clamp(30px,3.4vw,44px) 0 16px;
+  font:600 12.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--cyan);
+  display:flex;align-items:center;gap:14px;
+}
+.svc__mais::after{content:'';flex:1;height:1px;background:var(--line-inv)}
+
+.svc2{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(10px,1.2vw,14px);
+  list-style:none;margin:0;padding:0;
+}
+.svc2__card{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:18px 18px 18px 20px;
+  background:rgba(255,255,255,.045);border:1px solid var(--line-inv);border-radius:12px;
+  transition:background-color .3s linear,border-color .3s linear;
+}
+.svc2__card:hover{background:rgba(255,255,255,.08);border-color:rgba(53,168,201,.5)}
+.svc2__card .ico--lg{color:var(--cyan);flex:none;margin-top:2px}
+.svc2__card div{min-width:0;flex:1}
+.svc2__card h4{margin:0 0 4px;font:700 15.5px/1.25 var(--display);letter-spacing:-.012em;color:#fff}
+.svc2__card p{margin:0;font-size:13.6px;line-height:1.5;color:var(--muted-inv)}
+
+/* só a seta, porque o texto do card já diz do que se trata */
+.lnk--min{
+  flex:none;margin:0;padding:9px;align-self:center;
+  color:var(--green-lit);border-color:rgba(46,208,106,.34);
+}
+.lnk--min:hover{background:var(--green-btn);border-color:var(--green-btn)}
+
+.svc__cta{
+  display:flex;flex-wrap:wrap;align-items:center;gap:16px;
+  margin-top:clamp(26px,3vw,38px);padding-top:clamp(22px,2.4vw,30px);
+  border-top:1px solid var(--line-inv);
+}
+.svc__cta p{margin:0 auto 0 0;max-width:42ch;font-size:15.5px;color:var(--muted-inv)}
 
 /* ============================================================
    SOBRE
@@ -1024,6 +1087,7 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
    ============================================================ */
 @media (max-width:1080px){
   .svc,.why__list,.prob{grid-template-columns:repeat(2,1fr)}
+  .svc2{grid-template-columns:1fr}
   .why{grid-template-columns:1fr;gap:32px}
   .works{grid-template-columns:repeat(2,1fr)}
   .warranty,.faq,.quote{grid-template-columns:1fr;gap:30px}
@@ -1095,7 +1159,7 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   .hero::before,.hero::after{display:none}
   .hero__grid{
     grid-template-columns:1fr;
-    grid-template-areas:'h' 'art' 'sub' 'acts' 'marks';
+    grid-template-areas:'h' 'art' 'sub' 'nota' 'acts' 'marks';
     gap:0;padding-block:26px 30px;
   }
   .hero__h1{grid-area:h}
@@ -1113,6 +1177,8 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   #video{padding-block:32px 44px}
   #video .film__cab{margin-bottom:16px}
   .hero__sub{grid-area:sub;margin-top:16px;font-size:15.5px}
+  .hero__nota{grid-area:nota;margin-top:16px;padding:12px 14px;font-size:14px}
+  .hero__nota b{font-size:14.5px}
   .hero__acts{grid-area:acts;margin-top:22px;gap:10px}
   .hero__acts .btn{flex:1 1 100%;justify-content:center}
   .hero__marks{
@@ -1166,7 +1232,17 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
     box-shadow:0 4px 12px rgba(6,34,45,.42),0 18px 34px -12px rgba(23,163,74,.95);
   }
   .float .ico{width:26px;height:26px}
-  .svc__card{padding:22px}
+  .svc__card{
+    padding:22px;
+    grid-template-columns:minmax(0,1fr);
+    grid-template-areas:'ico' 'titulo' 'texto' 'acao';
+    grid-template-rows:auto auto 1fr auto;
+    row-gap:11px;
+  }
+  .svc__card h3{font-size:17.5px}
+  .svc__cta{flex-direction:column;align-items:stretch}
+  .svc__cta p{margin:0 0 4px;max-width:none}
+  .svc__cta .btn{justify-content:center}
   .area__list{gap:20px;justify-content:space-between;width:100%}
   .area__list li{gap:8px}
   .area__list b{font-size:11px}
