@@ -17,11 +17,30 @@
      ============================================================ */
   window.dataLayer = window.dataLayer || [];
 
+  // A Meta só otimiza direito em cima dos eventos padrão dela. Os dois que
+  // valem dinheiro aqui viram Lead e Contact; o resto vai como evento
+  // personalizado, que aparece no Gerenciador mas não puxa a campanha.
+  var META_PADRAO = {
+    envio_formulario: 'Lead',
+    clique_whatsapp: 'Contact',
+    enviar_projeto: 'Contact',
+    clique_telefone: 'Contact'
+  };
+
   function medir(evento, extra) {
     var dados = { event: evento };
     if (extra) for (var k in extra) if (extra.hasOwnProperty(k)) dados[k] = extra[k];
     window.dataLayer.push(dados);
     if (typeof window.gtag === 'function') window.gtag('event', evento, extra || {});
+    if (typeof window.fbq === 'function') {
+      var padrao = META_PADRAO[evento];
+      // o nome original vai junto, senão na Meta todo Contact fica igual e
+      // não dá pra saber se veio do hero ou do rodapé
+      var carga = { evento_site: evento };
+      if (extra) for (var p in extra) if (extra.hasOwnProperty(p)) carga[p] = extra[p];
+      if (padrao) window.fbq('track', padrao, carga);
+      else window.fbq('trackCustom', evento, carga);
+    }
   }
 
   doc.addEventListener('click', function (e) {

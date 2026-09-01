@@ -2,11 +2,41 @@
 
 Atende os itens 17 e 18 do relatório de otimização.
 
-O site **já dispara todos os eventos**. Falta só plugar a tag. Enquanto o
-GTM não for instalado, os eventos são empurrados pro `dataLayer` e ficam
-disponíveis no console, sem quebrar nada.
+O site dispara todos os eventos por uma função só, a `medir()` do
+`main.js`. Ela alimenta o `dataLayer`, o `gtag` e o `fbq` ao mesmo tempo.
+Plugar um canal novo é colar o snippet no `<head>`, e mais nada.
 
-## Como ativar
+## Estado hoje
+
+- **Meta Pixel: instalado.** ID `1144633880370288`, colado no `<head>` em
+  2026-09-01. Todo evento da tabela abaixo chega na Meta automaticamente.
+- **Google (GTM ou GA4): não instalado.** O cliente ainda não mandou o ID.
+  Quando mandar, é só colar o snippet no mesmo lugar. Nada mais precisa mudar.
+
+## Como a Meta recebe os eventos
+
+A Meta só otimiza campanha em cima dos eventos padrão dela. Por isso os que valem
+dinheiro são traduzidos, e o resto vai como evento personalizado (aparece no
+Gerenciador de Eventos, mas não puxa a campanha).
+
+| Evento do site | Vira, na Meta |
+|---|---|
+| `envio_formulario` | **Lead** (evento padrão) |
+| `clique_whatsapp` | **Contact** (evento padrão) |
+| `enviar_projeto` | **Contact** (evento padrão) |
+| `clique_telefone` | **Contact** (evento padrão) |
+| todos os outros | evento personalizado com o mesmo nome |
+
+Toda chamada leva junto o parâmetro `evento_site`, com o nome original, e o
+`origem`. Sem isso, na Meta todo Contact ficaria igual e não daria pra saber
+se o clique veio do hero, do vídeo ou do rodapé. O `Lead` leva também
+`servico` e `cidade`, que é o que qualifica.
+
+**Na campanha:** otimizar por **Lead**. O **Contact** serve pra público de
+remarketing e pra medir interesse, não pra otimização, senão a campanha vai atrás
+de quem clica no WhatsApp do rodapé e some.
+
+## Como ativar o lado do Google
 
 Abra `index.html` e procure o comentário `RASTREAMENTO` dentro do `<head>`.
 Cole ali o snippet do Google Tag Manager ou do GA4. Nada mais precisa mudar.
@@ -76,10 +106,17 @@ número que não vira venda.
 
 ## Como conferir se está funcionando
 
+**Pelo console:**
+
 1. Abra o site no Chrome, aperte F12 e vá na aba Console
 2. Digite `dataLayer` e dê Enter
 3. Clique em qualquer botão de WhatsApp
 4. Digite `dataLayer` de novo: o evento novo tem que estar no fim da lista
+
+**Pela Meta:** instale a extensão *Meta Pixel Helper* no Chrome, abra o site e
+clique nos botões. Ela mostra cada Contact e cada Lead saindo em tempo real,
+com os parâmetros. Os eventos também aparecem no Gerenciador de Eventos da
+Meta, em Testar eventos.
 
 ## O que ainda falta (fora do site)
 

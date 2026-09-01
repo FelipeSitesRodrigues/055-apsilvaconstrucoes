@@ -30,11 +30,28 @@
 <!-- ============================================================
      RASTREAMENTO
      O dataLayer já está criado e todos os CTAs disparam evento.
-     Para ativar a medição, cole aqui o snippet do Google Tag Manager
-     (GTM-XXXXXXX) ou do GA4 (G-XXXXXXXXXX). Nada mais precisa mudar:
-     os eventos disparados estão documentados em RASTREAMENTO.md
+     O Pixel da Meta está instalado abaixo. Falta o lado do Google:
+     quando o GTM-XXXXXXX ou o GA4 (G-XXXXXXXXXX) chegarem, é só colar
+     o snippet aqui. Nada mais precisa mudar, porque o main.js já
+     alimenta os três canais pela mesma função.
+     Os eventos disparados estão documentados em RASTREAMENTO.md
      ============================================================ -->
 <script>window.dataLayer=window.dataLayer||[];</script>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1144633880370288');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
 
 <script type="application/ld+json">
 {
@@ -112,6 +129,9 @@
 </script>
 </head>
 <body>
+
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=1144633880370288&ev=PageView&noscript=1"></noscript>
 
 <!-- ============ SPRITE DE ÍCONES ============ -->
 <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
