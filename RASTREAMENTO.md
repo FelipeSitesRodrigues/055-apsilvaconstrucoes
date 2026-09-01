@@ -8,10 +8,31 @@ Plugar um canal novo é colar o snippet no `<head>`, e mais nada.
 
 ## Estado hoje
 
-- **Meta Pixel: instalado.** ID `1144633880370288`, colado no `<head>` em
-  2026-09-01. Todo evento da tabela abaixo chega na Meta automaticamente.
-- **Google (GTM ou GA4): não instalado.** O cliente ainda não mandou o ID.
-  Quando mandar, é só colar o snippet no mesmo lugar. Nada mais precisa mudar.
+Tudo instalado em 2026-09-01.
+
+| Canal | ID | Observação |
+|---|---|---|
+| Meta Pixel | `1144633880370288` | eventos mapeados na tabela abaixo |
+| Google Tag Manager | `GTM-TGSBDZFT` | é quem carrega o GA4 e o Google Ads |
+| Google Tag Manager | `GTM-T9BLCJ43` | segundo contêiner, veio do site antigo |
+| Google Analytics 4 | `G-DVR6Q246HM` | entra por dentro do GTM, não precisa colar |
+| Google Ads | `AW-427532958` | remarketing ativo, entra por dentro do GTM |
+
+**De onde vieram os IDs do Google:** do Tag Assistant rodado no site antigo
+(apsilvaconstrucoes.com.br) em 2026-09-01. Já estavam lá, funcionando.
+
+> **Não remover os dois contêineres do GTM.** O site antigo carrega os dois, e
+> o `AW-427532958` está alimentando público de remarketing agora. Publicar o
+> site novo sem eles derrubaria o remarketing e as conversões da campanha do
+> cliente, e a culpa cairia no site novo.
+
+**O que ainda depende de quem cuida da campanha:** os gatilhos que existem hoje
+dentro do GTM foram feitos pro site antigo, em WordPress com Elementor. A
+visualização de página e o remarketing continuam funcionando sozinhos, porque
+são baseados em página. Mas qualquer conversão amarrada a um elemento do site
+velho (botão do Elementor, formulário do WordPress) para de disparar. Tem que
+remapear pros eventos da tabela mais abaixo, que são os que o site novo manda
+pro `dataLayer`.
 
 ## Como a Meta recebe os eventos
 
@@ -36,22 +57,35 @@ se o clique veio do hero, do vídeo ou do rodapé. O `Lead` leva também
 remarketing e pra medir interesse, não pra otimização, senão a campanha vai atrás
 de quem clica no WhatsApp do rodapé e some.
 
-## Como ativar o lado do Google
+## Onde os códigos ficam no site
 
-Abra `index.html` e procure o comentário `RASTREAMENTO` dentro do `<head>`.
-Cole ali o snippet do Google Tag Manager ou do GA4. Nada mais precisa mudar.
+Todos no `<head>` do `index.html`, logo depois do comentário `RASTREAMENTO`:
+primeiro o Meta Pixel, depois os dois contêineres do GTM. Os `<noscript>`
+correspondentes ficam logo depois do `<body>`.
 
-```html
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
-```
+Pra trocar ou acrescentar um canal, é só mexer nesse bloco. O `main.js` não
+precisa mudar: a função `medir()` alimenta `dataLayer`, `gtag` e `fbq` ao
+mesmo tempo, então quem chegar depois entra de graça.
 
-Se preferir GA4 direto, sem GTM, o site também chama `gtag()` quando ele
-existe. Basta colar o snippet do GA4 no mesmo lugar.
+## O custo disso na performance
+
+Antes de instalar as tags, a página não tinha nenhum domínio externo, e isso
+era proposital (foi por isso que as fontes são servidas do próprio domínio).
+Com Meta e Google instalados, medido em 492px de largura:
+
+| | Antes | Depois |
+|---|---|---|
+| Domínios externos | 0 | 8 |
+| Recursos carregados | 28 | 40 |
+| DOM pronto | 152 ms | 146 ms |
+| Load completo | 474 ms | 1695 ms |
+
+O que importa: **o DOM pronto não mudou**, porque tudo carrega de forma
+assíncrona e nada bloqueia a renderização. O que cresce é o load completo, que
+acontece depois da página já estar utilizável.
+
+O PageSpeed vai passar a mostrar aviso de código de terceiros. É o preço de
+medir, e o site antigo já pagava esse preço com as mesmas tags.
 
 ## Eventos disparados
 

@@ -30,10 +30,10 @@
 <!-- ============================================================
      RASTREAMENTO
      O dataLayer já está criado e todos os CTAs disparam evento.
-     O Pixel da Meta está instalado abaixo. Falta o lado do Google:
-     quando o GTM-XXXXXXX ou o GA4 (G-XXXXXXXXXX) chegarem, é só colar
-     o snippet aqui. Nada mais precisa mudar, porque o main.js já
-     alimenta os três canais pela mesma função.
+     Pixel da Meta e os dois contêineres do GTM estão instalados abaixo.
+     Os contêineres são os mesmos que já rodavam no site antigo: sem eles,
+     publicar o site novo derrubaria o remarketing e as conversões do
+     Google Ads do cliente.
      Os eventos disparados estão documentados em RASTREAMENTO.md
      ============================================================ -->
 <script>window.dataLayer=window.dataLayer||[];</script>
@@ -52,6 +52,23 @@ fbq('init', '1144633880370288');
 fbq('track', 'PageView');
 </script>
 <!-- End Meta Pixel Code -->
+
+<!-- Google Tag Manager
+     Os dois contêineres são os que já rodam no site antigo. O TGSBDZFT é
+     quem carrega o GA4 (G-DVR6Q246HM) e o Google Ads (AW-427532958), com
+     remarketing ativo. Instalar os dois reproduz o comportamento de hoje:
+     se houvesse duplicidade, ela já existiria lá. -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TGSBDZFT');</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T9BLCJ43');</script>
+<!-- End Google Tag Manager -->
 
 <script type="application/ld+json">
 {
@@ -132,6 +149,11 @@ fbq('track', 'PageView');
 
 <noscript><img height="1" width="1" style="display:none" alt=""
 src="https://www.facebook.com/tr?id=1144633880370288&ev=PageView&noscript=1"></noscript>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGSBDZFT"
+height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T9BLCJ43"
+height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
 
 <!-- ============ SPRITE DE ÍCONES ============ -->
 <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
