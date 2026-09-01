@@ -557,6 +557,13 @@ html{scrollbar-color:var(--cyan) var(--paper-2);scrollbar-width:thin}
   gap:clamp(32px,5vw,72px);align-items:center;
 }
 .about__txt p{color:var(--muted-inv);max-width:56ch}
+/* a frase de fecho que o cliente escreveu: fica com a cor e o peso do
+   título para encerrar o bloco, senão some no meio de quatro parágrafos */
+.about__fecho{
+  margin-top:22px;padding-left:16px;border-left:3px solid var(--green);
+  font:700 17px/1.45 var(--display);letter-spacing:-.014em;
+  color:#fff;
+}
 .about__txt .sec__h2{margin-bottom:22px}
 
 .about__pic{margin:0;position:relative}
